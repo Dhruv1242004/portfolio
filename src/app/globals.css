@@ -1,26 +1,374 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #F7F6F3;
+  --text: #1A1A1A;
+  --text-muted: #6B6B6B;
+  --accent: #4A6FA5;
+  --border: #E8E6E1;
+  --radius: 20px;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0, 0, 0, 0.02);
+  --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+  --card-dark: #1E1E1E;
+  --card-dark-hover: #262626;
+  --card-dark-border: #333333;
+  --card-dark-text: #F0EFEC;
+  --card-dark-muted: #8A8A8A;
+  --header-h: 72px;
+  --ease-premium: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
+  --color-muted: var(--text-muted);
+  --color-accent: var(--accent);
+  --color-border-token: var(--border);
+  --radius-token: var(--radius);
+  --shadow-token: var(--shadow);
+  --shadow-hover: var(--shadow-hover);
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-jakarta);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ── Base reset ─────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--bg);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: transparent;
+  color: var(--text);
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  letter-spacing: -0.005em;
+  position: relative;
+}
+
+/* ── Typography scale ───────────────────────────────── */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading), var(--font-sans), system-ui, sans-serif;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 5.5vw, 4rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+h2 {
+  font-size: clamp(1.875rem, 3.5vw, 2.75rem);
+  letter-spacing: -0.025em;
+  line-height: 1.12;
+}
+
+h3 {
+  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+}
+
+p {
+  max-width: 65ch;
+  line-height: 1.7;
+}
+
+small,
+.text-sm {
+  letter-spacing: 0em;
+  line-height: 1.5;
+}
+
+/* ── Ambient background keyframes (GPU: transform only) */
+
+@keyframes ambient-drift-1 {
+
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  33% {
+    transform: translate3d(60px, -40px, 0) scale(1.05);
+  }
+
+  66% {
+    transform: translate3d(-30px, 30px, 0) scale(0.97);
+  }
+}
+
+@keyframes ambient-drift-2 {
+
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  40% {
+    transform: translate3d(-50px, 40px, 0) scale(1.03);
+  }
+
+  70% {
+    transform: translate3d(40px, -20px, 0) scale(0.98);
+  }
+}
+
+@keyframes ambient-drift-3 {
+
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(40px, -50px, 0) scale(1.04);
+  }
+}
+
+/* ── Hero glow breathing ─────────────────────────────── */
+
+@keyframes hero-glow-breathe {
+
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.9;
+    transform: scale(1.02);
+  }
+}
+
+/* ── Colorful orb drift animations (GPU: transform only) */
+
+@keyframes orbDrift1 {
+
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  33% {
+    transform: translate3d(30px, -22px, 0) scale(1.04);
+  }
+
+  66% {
+    transform: translate3d(-20px, 24px, 0) scale(0.96);
+  }
+}
+
+@keyframes orbDrift2 {
+
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  40% {
+    transform: translate3d(-26px, 20px, 0) scale(1.05);
+  }
+
+  70% {
+    transform: translate3d(22px, -14px, 0) scale(0.98);
+  }
+}
+
+@keyframes orbDrift3 {
+
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(24px, -30px, 0) scale(1.06);
+  }
+}
+
+@keyframes orbDrift4 {
+
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  35% {
+    transform: translate3d(-24px, -18px, 0) scale(1.03);
+  }
+
+  65% {
+    transform: translate3d(18px, 20px, 0) scale(0.97);
+  }
+}
+
+@keyframes orbDrift5 {
+
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  30% {
+    transform: translate3d(20px, 14px, 0) scale(1.04);
+  }
+
+  60% {
+    transform: translate3d(-16px, -24px, 0) scale(0.98);
+  }
+}
+
+.hero-orb {
+  will-change: transform;
+}
+
+.hero-glass-panel::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0.02) 42%, transparent 100%);
+  opacity: 0.9;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-orb {
+    animation: none !important;
+  }
+}
+
+
+/* ── Button micro-interactions ─────────────────────── */
+
+.btn-primary {
+  transition: transform 0.25s var(--ease-premium),
+    box-shadow 0.25s var(--ease-premium),
+    background 0.2s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(26, 26, 26, 0.2), 0 2px 6px rgba(26, 26, 26, 0.1);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(26, 26, 26, 0.1);
+}
+
+.btn-secondary {
+  transition: transform 0.25s var(--ease-premium),
+    box-shadow 0.25s var(--ease-premium),
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  border-color: rgba(26, 26, 26, 0.2) !important;
+  background: rgba(26, 26, 26, 0.02) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* ── Card hover effect ─────────────────────────────── */
+
+.card-hover {
+  transition: transform 0.35s var(--ease-premium),
+    box-shadow 0.35s var(--ease-premium),
+    border-color 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08),
+    0 4px 12px rgba(0, 0, 0, 0.04),
+    0 0 0 1px rgba(74, 111, 165, 0.08);
+  border-color: rgba(74, 111, 165, 0.12) !important;
+}
+
+/* ── Reduced motion ─────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── Focus styles ───────────────────────────────────── */
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ── Skip to content ────────────────────────────────── */
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.75rem 1.5rem;
+  background: var(--text);
+  color: var(--bg);
+  border-radius: var(--radius);
+  font-weight: 500;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* ── Selection ──────────────────────────────────────── */
+
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ── About section responsive grid ─────────────────── */
+@media (min-width: 768px) {
+  .about-grid {
+    grid-template-columns: 1fr 320px !important;
+  }
 }
