@@ -17,7 +17,7 @@ export default function Experience() {
 
             <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
                 {EXPERIENCES.map((exp, idx) => (
-                    <TimelineItem key={exp.company} exp={exp} index={idx} isLast={idx === EXPERIENCES.length - 1} />
+                    <TimelineItem key={exp.company} exp={exp} isLast={idx === EXPERIENCES.length - 1} />
                 ))}
             </div>
         </SectionWrapper>
@@ -26,11 +26,9 @@ export default function Experience() {
 
 function TimelineItem({
     exp,
-    index,
     isLast,
 }: {
     exp: (typeof EXPERIENCES)[0];
-    index: number;
     isLast: boolean;
 }) {
     const ref = useRef(null);
