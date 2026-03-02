@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState, useCallback, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import SectionWrapper from "@/components/SectionWrapper";
@@ -40,6 +41,29 @@ const contentVariants = {
     visible: { opacity: 1, y: 0 },
     exit: { opacity: 0, y: -6 },
 };
+
+const PROJECT_VISUALS = [
+    {
+        theme: "#7BA7E3",
+        label: "Agent Console",
+        image: "/projects/project1.png",
+    },
+    {
+        theme: "#E0AA68",
+        label: "Queue Monitor",
+        image: "/projects/project2.png",
+    },
+    {
+        theme: "#8F8AD9",
+        label: "Document Analyzer",
+        image: "/projects/project3.png",
+    },
+    {
+        theme: "#64B4A6",
+        label: "Mobile Product",
+        image: "/projects/project4.png",
+    },
+] as const;
 
 export default function FeaturedWork() {
     const [activeIndex, setActiveIndex] = useState(0);
@@ -163,7 +187,20 @@ export default function FeaturedWork() {
 
                 {/* Right — preview panel with liquid wipe */}
                 <div className="relative overflow-hidden rounded-2xl">
-                    <div className="aspect-[4/3] w-full rounded-2xl border border-border-token bg-foreground/[0.02] shadow-token" />
+                    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-border-token bg-[rgba(255,255,255,0.3)] shadow-token">
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={`preview-${displayIndex}`}
+                                initial={{ opacity: 0, scale: 0.98 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 1.02 }}
+                                transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
+                                className="absolute inset-0"
+                            >
+                                <ProjectPreview index={displayIndex} title={project.title} />
+                            </motion.div>
+                        </AnimatePresence>
+                    </div>
 
                     <AnimatePresence>
                         {isWiping && (
@@ -194,5 +231,61 @@ export default function FeaturedWork() {
                 ))}
             </div>
         </SectionWrapper>
+    );
+}
+
+function ProjectPreview({
+    index,
+    title,
+}: {
+    index: number;
+    title: string;
+}) {
+    const visual = PROJECT_VISUALS[index];
+
+    return (
+        <div
+            className="relative h-full w-full overflow-hidden rounded-2xl"
+            style={{
+                background: `linear-gradient(180deg, rgba(255,255,255,0.22), rgba(255,255,255,0.08)), radial-gradient(circle at 20% 10%, color-mix(in srgb, ${visual.theme} 22%, white) 0%, rgba(255,255,255,0.2) 28%, rgba(255,255,255,0.06) 68%, transparent 100%)`,
+            }}
+        >
+            <div
+                aria-hidden="true"
+                style={{
+                    position: "absolute",
+                    inset: 18,
+                    borderRadius: 30,
+                    border: "1px solid rgba(255,255,255,0.52)",
+                    background: "linear-gradient(180deg, rgba(255,255,255,0.3), rgba(255,255,255,0.16))",
+                    backdropFilter: "blur(18px)",
+                    WebkitBackdropFilter: "blur(18px)",
+                    boxShadow: "0 20px 50px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.52)",
+                }}
+            />
+
+            <div
+                className="absolute inset-[28px] overflow-hidden rounded-[24px] border border-white/38 shadow-[0_24px_50px_rgba(0,0,0,0.08)]"
+                style={{
+                    background: "rgba(255,255,255,0.16)",
+                }}
+            >
+                <Image
+                    src={visual.image}
+                    alt={`${title} preview`}
+                    fill
+                    className="object-cover object-center"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    priority={index === 0}
+                />
+                <div
+                    aria-hidden="true"
+                    className="absolute inset-0"
+                    style={{
+                        background: "linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0) 24%, rgba(0,0,0,0.04) 100%)",
+                    }}
+                />
+            </div>
+        </div>
     );
 }

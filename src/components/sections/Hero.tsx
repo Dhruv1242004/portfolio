@@ -120,7 +120,7 @@ export default function Hero() {
                     zIndex: 2,
                     maxWidth: 1280,
                     marginInline: "auto",
-                    paddingTop: "clamp(16px, 3vw, 32px)",
+                    paddingTop: "clamp(84px, 14vw, 96px)",
                     paddingBottom: "clamp(16px, 3vw, 32px)",
                 }}
             >

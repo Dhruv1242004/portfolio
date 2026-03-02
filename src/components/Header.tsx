@@ -128,7 +128,7 @@ export default function Header() {
             <header
                 style={{
                     position: "fixed",
-                    top: "clamp(16px, 2.5vw, 24px)",
+                    top: "clamp(8px, 1.4vw, 12px)",
                     left: 0,
                     width: "100%",
                     zIndex: 50,
