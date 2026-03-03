@@ -1,6 +1,6 @@
 "use client";
 
-import { HERO, PERSONAL } from "@/data/portfolio";
+import { HERO, PERSONAL, RESUME_PATH } from "@/data/portfolio";
 
 const PANEL_ORBS = [
     {
@@ -243,13 +243,12 @@ export default function Hero() {
                                     </svg>
                                 </a>
 
-                                <a
-                                    href="/resume.pdf"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    aria-label="Download resume (PDF)"
-                                    className="btn-secondary"
-                                    style={{
+                            <a
+                                href={RESUME_PATH}
+                                download
+                                aria-label="Download resume (PDF)"
+                                className="btn-secondary"
+                                style={{
                                         display: "inline-flex",
                                         alignItems: "center",
                                         gap: 8,

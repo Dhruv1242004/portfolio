@@ -8,6 +8,8 @@ export const PERSONAL = {
     github: "https://github.com/Dhruv1242004",
 } as const;
 
+export const RESUME_PATH = "/resume.pdf" as const;
+
 // ─── Hero ──────────────────────────────────────────────────────────────────────
 
 export const HERO = {

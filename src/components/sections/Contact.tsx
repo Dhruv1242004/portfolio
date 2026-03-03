@@ -1,7 +1,7 @@
 "use client";
 
 import SectionWrapper from "@/components/SectionWrapper";
-import { PERSONAL } from "@/data/portfolio";
+import { PERSONAL, RESUME_PATH } from "@/data/portfolio";
 
 /* ── Inline SVG icons ── */
 const GitHubIcon = () => (
@@ -66,9 +66,8 @@ export default function Contact() {
                     </a>
 
                     <a
-                        href="/resume.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        href={RESUME_PATH}
+                        download
                         aria-label="Download resume (PDF)"
                         className="btn-secondary"
                         style={{
