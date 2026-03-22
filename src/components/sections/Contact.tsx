@@ -67,8 +67,9 @@ export default function Contact() {
 
                     <a
                         href={RESUME_PATH}
-                        download
-                        aria-label="Download resume (PDF)"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Open resume PDF in a new tab"
                         className="btn-secondary"
                         style={{
                             display: "inline-flex",
